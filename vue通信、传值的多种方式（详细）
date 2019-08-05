@@ -1,0 +1,20 @@
+一、通过路由带参数进行传值
+①两个组件 A和B,A组件通过query把orderId传递给B组件（触发事件可以是点击事件、钩子函数等）
+this.$router.push({ path: '/conponentsB', query: { orderId: 123 } }) // 跳转到B
+②在B组件中获取A组件传递过来的参数
+this.$route.query.orderId
+
+二、通过设置 Session Storage缓存的形式进行传递
+
+三、父子组件之间的传值
+props emit
+
+四、eventBus
+
+五、vuex进行传值
+
+六、父组件通过$refs获取子组件的数据和方法
+
+七、子组件通过$parent获取父组件的数据和方法
+
+八、slot插槽

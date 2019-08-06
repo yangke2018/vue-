@@ -1,4 +1,6 @@
 参考资料：https://www.cnblogs.com/chenjg/p/9541291.html
+https://www.jianshu.com/p/23180880d3aa
+https://www.jianshu.com/p/22f214bb4294
 
 一、Object.defineProperty
 
@@ -17,4 +19,106 @@
 
 三、简单的demo
 
+四、双向数据绑定
+
+  概念：数据层和视图层中的数据同步, 在写入数据时视图层实时的跟着更新。
+  实现：实现mvvm的双向绑定，是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+  demo：
+  <input type="text" id="inp" />
+  <div id="box"></div>
+  <script>
+  let obj = {};
+  let oInp = document.getElementById('inp');
+  let oBox = document.getElementById('box');
+  Object.defineProperty(obj, 'name', {
+      configurable: true,
+      enumerable: true,
+      get: function() {
+          console.log(111)
+          return val;
+      },
+      set: function(newVal) {
+          oInp.value = newVal;
+          oBox.innerHTML = newVal;
+      }
+  });
+  oInp.addEventListener('input', function(e) {
+      obj.name = e.target.value;
+  });
+  obj.name = 'xxxx';
+  
+ 五、 v-mode
+   <input v-model="sth" />
+  //  等同于
+  <input :value="sth" @input="sth = $event.target.value" />
+  
+  vue如何在自定义组件中使用v-model
+  <!-- parent -->
+<template>
+<div class="parent">
+  <p>我是父亲, 对儿子说： {{sthGiveChild}}</p>
+  <Child @returnBack="turnBack" :give="sthGiveChild"></Child>
+</div>
+</template>
+<script>
+import Child from './Child.vue';
+export default {
+  data() {
+    return {
+      sthGiveChild: '给你100块'
+    };
+  },
+  components: {
+    Child
+  },
+  methods: {
+    turnBack(val) {
+      this.sthGiveChild = val;
+    }
+  }
+}
+</script>
+<!-- child -->
+<template>
+<div class="child">
+  <p>我是儿子，父亲对我说： {{give}}</p>
+  <a href="javascript:;" rel="external nofollow" @click="returnBackFn">回应</a>
+</div>
+</template>
+<script>
+export default {
+  props: {
+    give: String
+  },
+  methods: {
+    returnBackFn() {
+      this.$emit('returnBack', '还你200块');
+    }
+  }
+}
+</script>
+
+有这么一句话： 默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event。
+<!-- child -->
+<template>
+<div class="child">
+  <p>我是儿子，父亲对我说： {{value}}</p>
+  <a href="javascript:;" rel="external nofollow" @click="returnBackFn">回应</a>
+</div>
+</template>
+<script>
+export default {
+  props: {
+    value: String
+  },
+  methods: {
+    returnBackFn() {
+      this.$emit('input', '还你200块');
+    }
+  }
+}
+</script>
+
+
+  
   

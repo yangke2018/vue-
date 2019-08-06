@@ -48,6 +48,13 @@
     
   5.Module
     将 store 分割成模块（module）
+    
+  6.插件
+  import createLogger from 'vuex/dist/logger'
+
+  const store = new Vuex.Store({
+    plugins: [createLogger()]
+  })
       
     
     

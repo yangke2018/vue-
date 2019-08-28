@@ -19,3 +19,78 @@ vue实现数据双向绑定主要是：采用数据劫持结合发布者-订阅�
 5、Vue的路由实现：hash模式 和 history模式
 hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；
 history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。
+
+6、vue路由的钩子函数
+首页可以控制导航跳转，beforeEach，afterEach等，一般用于页面title的修改。一些需要登录才能调整页面的重定向功能。
+beforeEach主要有3个参数to，from，next：
+to：route即将进入的目标路由对象，
+from：route当前导航正要离开的路由
+next：function一定要调用该方法resolve这个钩子。执行效果依赖next方法的调用参数。可以控制网页的跳转。
+
+7、自定义指令
+1)创建局部指令
+var app = new Vue({
+    el: '#app',
+    data: {    
+    },
+    // 创建指令(可以多个)
+    directives: {
+        // 指令名称
+        dir1: {
+            inserted(el) {
+                // 指令中第一个参数是当前使用指令的DOM
+                console.log(el);
+                console.log(arguments);
+                // 对DOM进行操作
+                el.style.width = '200px';
+                el.style.height = '200px';
+                el.style.background = '#000';
+            }
+        }
+    }
+})
+2)全局指令
+Vue.directive('dir2', {
+    inserted(el) {
+        console.log(el);
+    }
+})
+
+8、自定义一个过滤器？
+
+9、对keep-alive 的了解
+
+10、简答题
+  1）css只在当前组件起作用
+  <style scoped></style>
+  
+  2）v-if 和 v-show 区别
+  v-if按照条件是否渲染，v-show是display的block或none；
+  
+  3）$route和$router的区别
+  $route是“路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。而$router是“路由实例”对象包括了路由的跳转方法，钩子函数等。
+  
+  4）vue常用的修饰符？
+  .prevent: 提交事件不再重载页面；
+  .stop: 阻止单击事件冒泡；
+  .self: 当事件发生在该元素本身而不是子元素的时候会触发；
+  .capture: 事件侦听，事件发生的时候会调用
+  
+  5）v-on 可以绑定多个方法吗？
+  可以
+  
+  6）vue中 key 值的作用？
+  高效的更新虚拟DOM。
+  
+  7）什么是vue的计算属性？
+  
+  8）vue等单页面应用及其优缺点
+  
+  9）怎么定义 vue-router 的动态路由? 怎么获取传过来的值
+  在 router 目录下的 index.js 文件中，对 path 属性加上 /:id，使用 router 对象的 params.id 获取。
+  
+  
+  
+  
+  
+  

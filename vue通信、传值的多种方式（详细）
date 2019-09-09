@@ -18,3 +18,5 @@ props emit
 七、子组件通过$parent获取父组件的数据和方法
 
 八、slot插槽
+
+九、provide/inject

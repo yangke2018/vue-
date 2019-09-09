@@ -1,0 +1,68 @@
+参考资料：
+https://segmentfault.com/a/1190000013783767?utm_source=tag-newest
+
+一、Vue 中实现双向绑定的 4 种方法
+    1、v-model 指令
+    <input v-model="text" />
+    <input :value="text" @input="e => text = e.target.value" />
+    
+    2、.sync 修饰符
+    <my-dialog :visible.sync="dialogVisible" />
+    <my-dialog
+    :visible="dialogVisible"
+    @update:visible="newVisible => dialogVisible = newVisible"
+    />
+    
+    3、model 属性 (JSX/渲染函数中)
+    {
+      render(h) {
+        return h('my-dialog', {
+          model: {
+            value: this.dialogVisible,
+            callback: newVisible => this.dialogVisible = newVisible
+          }
+        })
+      }
+    }
+    JSX 中这样使用：
+    {
+      render() {
+        return (
+          <my-dialog
+            {...{
+              model: {
+                value: this.dialogVisible,
+                callback: newVisible => this.dialogVisible = newVisible
+              }
+            }}
+          />
+        )
+      }
+    }
+    
+    4、vue-better-sync 插件
+
+二、双向数据绑定简单实现
+    <div id="aa"></div>
+    <input type="text" oninput="changedata(this.value)">
+    
+    var data = {};
+    var dom = getElementByID('aa')
+    
+    function changedata(value){
+         data.a= value
+    }
+    
+    Object.defineProperty(data,'a',{
+        get:function(){
+            return a
+        },
+        set:function(newValue){
+            dom.innerHtml = newValue
+        }
+    })
+
+
+
+
+    

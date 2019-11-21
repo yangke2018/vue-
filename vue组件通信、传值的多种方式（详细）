@@ -1,3 +1,5 @@
+参考资料：https://segmentfault.com/a/1190000013636153?utm_source=tag-newest
+
 一、通过路由带参数进行传值
 ①两个组件 A和B,A组件通过query把orderId传递给B组件（触发事件可以是点击事件、钩子函数等）
 this.$router.push({ path: '/conponentsB', query: { orderId: 123 } }) // 跳转到B
@@ -10,6 +12,7 @@ this.$route.query.orderId
 props emit
 
 四、eventBus
+原理：主要是现实途径是在要相互通信的兄弟组件之中，都引入一个新的vue实例，然后通过分别调用这个实例的事件触发和监听来实现通信和参数传递。
 
 五、vuex进行传值
 
